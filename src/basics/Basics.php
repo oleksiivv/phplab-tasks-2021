@@ -1,13 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace basics;
 
+use basics\BasicsInterface;
+use basics\BasicsValidator;
 
-class Basics implements BasicsInterface{
-    private BasicsValidator $validator;
+class Basics implements BasicsInterface
+{
 
-    public function __construct(BasicsValidator $v){
-        $this->validator=$v;
+    private BasicsValidator $baseValidator;
+
+    private const HOUR_QUARTERS = ["first", "second", "third", "fourth"];
+
+    public function __construct(BasicsValidator $baseValidator)
+    {
+        $this->baseValidator=$baseValidator;
     }
 
     /**
@@ -15,30 +24,38 @@ class Basics implements BasicsInterface{
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function getMinuteQuarter(int $minute): string{
-        $caught=false;
-        try{
-            $this->validator->isMinutesException($minute);
-        }
-        catch(InvalidArgumentException $e){
-            $caught=true;
-            echo $e->getMessage();
-        }
+    public function getMinuteQuarter(int $minute): string
+    {
+        $this->baseValidator->isMinutesException($minute);
+
         $result="";
-        if (!$caught){
-            if($minute>0 && $minute<=15){
-                $result="first";
-            } 
-            else if($minute>15 && $minute<=30){
-                $result="second";
-            }
-            else if($minute>30 && $minute<=45){
-                $result="third";
-            }
-            else{
-                $result="fourth";
-            }
+        if(
+            $minute>0
+            && $minute<=15
+        ){
+
+            $result=self::HOUR_QUARTERS[0];
+
+        } elseif(
+            $minute>15
+            && $minute<=30
+        ){
+
+            $result=self::HOUR_QUARTERS[1];
+
+        } elseif(
+            $minute>30
+            && $minute<=45
+        ){
+
+            $result=self::HOUR_QUARTERS[2];
+
+        } else{
+
+            $result=self::HOUR_QUARTERS[3];
+            
         }
+
         return $result;
     }
 
@@ -47,55 +64,42 @@ class Basics implements BasicsInterface{
      * @return boolean
      * @throws \InvalidArgumentException
      */
-    public function isLeapYear(int $year): bool{
-        $caught=false;
-        try{
-            $this->validator->isYearException($year);
+    public function isLeapYear(int $year): bool
+    {
+        
+        $this->baseValidator->isYearException($year);
+        
+        if((
+            $year%4==0
+            && $year%100 !=0)
+            || $year%400==0
+        ){
+            return true;
         }
-        catch(InvalidArgumentException $e){
-            $caught=true;
-            echo $e->getMessage();
-        }
-        if (!$caught){
-            if(($year%4==0 && $year%100 !=0) || $year%400==0){
-                return true;
-            }
-        }
+
         return false;
     }
 
-
-    
     /**
      * @param string $input
      * @return boolean
      * @throws \InvalidArgumentException
      */
-    public function isSumEqual(string $input): bool{
-        $caught=false;
-        try{
-            $this->validator->isValidStringException($input);
-        }
-        catch(InvalidArgumentException $e){
-            $caught=true;
-            echo $e->getMessage();
-        }
+    public function isSumEqual(string $input): bool
+    {
+        $this->baseValidator->isValidStringException($input);
+        
+        $sumFirstNums=0;
+        $sumLastNums=0;
 
-        if (!$caught){
+        for($i=0;$i<strlen($input)/2;$i++){
+            $sumFirstNums+=$input[$i];
+        }
             
-            $sumFirstNums=0;
-            $sumLastNums=0;
-
-            for($i=0;$i<strlen($input)/2;$i++){
-                $sumFirstNums+=$input[$i];
-            }
-            for($i=strlen($input)/2;$i<strlen($input);$i++){
-                $sumLastNums+=$input[$i];
-            }
-
-            return $sumFirstNums==$sumLastNums;
+        for($i=strlen($input)/2;$i<strlen($input);$i++){
+            $sumLastNums+=$input[$i];
         }
 
-        return false;
+        return $sumFirstNums==$sumLastNums;
     }
 }
