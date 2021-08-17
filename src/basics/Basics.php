@@ -28,31 +28,22 @@ class Basics implements BasicsInterface
     {
         $this->baseValidator->isMinutesException($minute);
 
-        $result="";
-        if(
-            $minute>0
-            && $minute<=15
-        ){
+        $result = "";
+        if ($minute > 0 && $minute <= 15) {
+            
+            $result = self::HOUR_QUARTERS[0];
 
-            $result=self::HOUR_QUARTERS[0];
+        } elseif ($minute > 15 && $minute <= 30) {
 
-        } elseif(
-            $minute>15
-            && $minute<=30
-        ){
+            $result = self::HOUR_QUARTERS[1];
 
-            $result=self::HOUR_QUARTERS[1];
+        } elseif ($minute > 30 && $minute <= 45) {
 
-        } elseif(
-            $minute>30
-            && $minute<=45
-        ){
+            $result = self::HOUR_QUARTERS[2];
 
-            $result=self::HOUR_QUARTERS[2];
+        } else {
 
-        } else{
-
-            $result=self::HOUR_QUARTERS[3];
+            $result = self::HOUR_QUARTERS[3];
             
         }
 
@@ -69,11 +60,11 @@ class Basics implements BasicsInterface
         
         $this->baseValidator->isYearException($year);
         
-        if((
-            $year%4==0
-            && $year%100 !=0)
-            || $year%400==0
-        ){
+        if ((
+            $year % 4 == 0
+            && $year % 100 != 0)
+            || $year % 400 == 0
+        ) {
             return true;
         }
 
@@ -89,17 +80,17 @@ class Basics implements BasicsInterface
     {
         $this->baseValidator->isValidStringException($input);
         
-        $sumFirstNums=0;
-        $sumLastNums=0;
+        $sumOfFirstPart = 0;
+        $sumOfSecondPart = 0;
 
-        for($i=0;$i<strlen($input)/2;$i++){
-            $sumFirstNums+=$input[$i];
+        for($i = 0; $i < strlen($input) / 2; $i++) {
+            $sumOfFirstPart += (int) $input[$i];
         }
             
-        for($i=strlen($input)/2;$i<strlen($input);$i++){
-            $sumLastNums+=$input[$i];
+        for($i = strlen($input) / 2; $i < strlen($input); $i++) {
+            $sumOfSecondPart += (int) $input[$i];
         }
 
-        return $sumFirstNums==$sumLastNums;
+        return $sumOfFirstPart === $sumOfSecondPart;
     }
 }
