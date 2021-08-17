@@ -30,21 +30,13 @@ class Basics implements BasicsInterface
 
         $result = "";
         if ($minute > 0 && $minute <= 15) {
-            
             $result = self::HOUR_QUARTERS[0];
-
         } elseif ($minute > 15 && $minute <= 30) {
-
             $result = self::HOUR_QUARTERS[1];
-
         } elseif ($minute > 30 && $minute <= 45) {
-
             $result = self::HOUR_QUARTERS[2];
-
         } else {
-
             $result = self::HOUR_QUARTERS[3];
-            
         }
 
         return $result;
@@ -57,18 +49,9 @@ class Basics implements BasicsInterface
      */
     public function isLeapYear(int $year): bool
     {
-        
         $this->baseValidator->isYearException($year);
         
-        if ((
-            $year % 4 == 0
-            && $year % 100 != 0)
-            || $year % 400 == 0
-        ) {
-            return true;
-        }
-
-        return false;
+        return (($year % 4 === 0 && $year % 100 !== 0) || $year % 400 === 0);
     }
 
     /**
@@ -83,11 +66,11 @@ class Basics implements BasicsInterface
         $sumOfFirstPart = 0;
         $sumOfSecondPart = 0;
 
-        for($i = 0; $i < strlen($input) / 2; $i++) {
+        for ($i = 0; $i < strlen($input) / 2; $i++) {
             $sumOfFirstPart += (int) $input[$i];
         }
             
-        for($i = strlen($input) / 2; $i < strlen($input); $i++) {
+        for ($i = strlen($input) / 2; $i < strlen($input); $i++) {
             $sumOfSecondPart += (int) $input[$i];
         }
 
