@@ -18,7 +18,7 @@ class Arrays implements ArraysInterface
         $arrayCount = count($input);
 
         for ($i = 0; $i < $arrayCount; $i++) {
-            for ($n = 0; $n < $input[$i]; $n++){
+            for ($n = 0; $n < $input[$i]; $n++) {
                 $result[] = $input[$i];
             }
         }
