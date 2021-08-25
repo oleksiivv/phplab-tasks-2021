@@ -58,7 +58,7 @@ class Strings implements StringsInterface
     private function utf8StringReverse(string $input): string
     {
         preg_match_all('/./us', $input, $arr);
+        
         return join('', array_reverse($arr[0]));
     }
-
 }
