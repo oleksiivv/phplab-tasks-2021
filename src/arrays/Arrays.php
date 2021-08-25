@@ -18,9 +18,7 @@ class Arrays implements ArraysInterface
         $arrayCount = count($input);
 
         for ($i = 0; $i < $arrayCount; $i++) {
-            for ($n = 0; $n < $input[$i]; $n++) {
-                $result[] = $input[$i];
-            }
+            $result = array_merge($result, array_fill(count($result), $input[$i], $input[$i]));
         }
 
         return $result;
@@ -32,29 +30,12 @@ class Arrays implements ArraysInterface
      */
     public function getUniqueValue(array $input): int
     {
-        $uniqueValue = 0;
-        $uniqueValues = [];
+        $countedItems = array_count_values($input);
+        $uniqueItems = array_filter($countedItems, function($item) {
+            return $item === 1;
+        });
 
-        if (count($input) === 0) {
-            return $uniqueValue;
-        }
-
-        foreach ($input as $item) {
-            if (!in_array($item, $uniqueValues)) {
-                $uniqueValues[] = $item;
-            }
-        }
-
-        $uniqueValue = null;
-        foreach ($uniqueValues as $item) {
-            if (count(array_keys($input, $item)) === 1) {
-                if ($item < $uniqueValue || !isset($uniqueValue)) {
-                    $uniqueValue = $item;
-                }
-            }
-        }
-        
-        return isset($uniqueValue) ? $uniqueValue : 0;
+        return count($uniqueItems) > 0 ? min(array_keys($uniqueItems)) : 0;
     }
 
     /**
