@@ -19,11 +19,13 @@
 
 namespace src\oop\app\src\Parsers;
 
+use src\oop\app\src\Models\Movie;
+
 interface ParserInterface
 {
     /**
      * @param string $siteContent
-     * @return mixed
+     * @return array
      */
-    public function parseContent(string $siteContent);
+    public function parseContent(string $siteContent): Movie;
 }
