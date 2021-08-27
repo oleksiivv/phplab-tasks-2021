@@ -24,6 +24,10 @@ class Scrapper
         $this->parser = $parser;
     }
 
+    /**
+     * @param string $url
+     * @return Movie
+     */
     public function getMovie(string $url): Movie
     {
         return $this->parser->parseContent($this->transport->getContent($url));

@@ -10,7 +10,7 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
 {
     /**
      * @param string $siteContent
-     * @return array
+     * @return Movie
      */
     public function parseContent(string $siteContent): Movie
     {
