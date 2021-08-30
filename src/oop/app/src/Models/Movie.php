@@ -18,11 +18,12 @@ use src\oop\app\src\Models\MovieInterface;
 
 class Movie implements MovieInterface
 {
-    private $title;
-    private $poster;
-    private $description;
+    private string $title;
+    private string $poster;
+    private string $description;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->title = "";
         $this->poster = "";
         $this->description = "";
@@ -37,10 +38,13 @@ class Movie implements MovieInterface
 
     /**
      * @param string $title
+     * @return Movie
      */
-    public function setTitle(string $title): void
+    public function setTitle(string $title): Movie
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -53,10 +57,13 @@ class Movie implements MovieInterface
 
     /**
      * @param string $poster
+     * @return Movie
      */
-    public function setPoster(string $poster): void
+    public function setPoster(string $poster): Movie
     {
         $this->poster = $poster;
+
+        return $this;
     }
 
     /**
@@ -69,9 +76,12 @@ class Movie implements MovieInterface
 
     /**
      * @param string $description
+     * @return Movie
      */
-    public function setDescription(string $description): void
+    public function setDescription(string $description): Movie
     {
         $this->description = $description;
+
+        return $this;
     }
 }

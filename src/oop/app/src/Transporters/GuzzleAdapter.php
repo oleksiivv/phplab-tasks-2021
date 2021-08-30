@@ -7,14 +7,19 @@ use \GuzzleHttp\Client;
 
 class GuzzleAdapter implements TransportInterface
 {
+    private Client $client;
+
+    public function __construct()
+    {
+        $this->client = new Client();
+    }
     /**
      * @param string $url
      * @return string
      */
     public function getContent(string $url): string
     {
-        $client = new Client();
-        $response = $client->request('GET', $url);
+        $response = $this->client->request('GET', $url);
 
         return $response->getBody();
     }

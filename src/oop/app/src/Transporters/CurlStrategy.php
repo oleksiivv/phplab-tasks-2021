@@ -36,9 +36,8 @@ class CurlStrategy implements TransportInterface
         $tmpHeaders = substr($content, 0, $headerSize);
         $result = substr($content, $headerSize);
 
-        $headers = array();
-        foreach (explode("\n", $tmpHeaders) as $header)
-        {
+        $headers = [];
+        foreach (explode("\n", $tmpHeaders) as $header) {
             $tmp = explode(":", trim($header), 2);
             if (count($tmp) > 1) {
                 $headers[strtolower($tmp[0])] = trim(strtolower($tmp[1]));

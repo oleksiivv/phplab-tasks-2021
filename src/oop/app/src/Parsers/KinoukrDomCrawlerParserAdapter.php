@@ -8,6 +8,13 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class KinoukrDomCrawlerParserAdapter implements ParserInterface
 {
+    private Movie $movie;
+
+    public function __construct()
+    {
+        $this->movie = new Movie();
+    }
+
     /**
      * @param string $siteContent
      * @return Movie
@@ -15,14 +22,10 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
     public function parseContent(string $siteContent): Movie
     {
         $crawler = new Crawler($siteContent);
-
         $crawler = $crawler->filter('#dle-content');
-
-        $movie = new Movie();
-        $movie->setTitle($crawler->filter('h1')->first()->text());
-        $movie->setPoster("https://kinoukr.com/". $crawler->filter('img')->first()->attr("src"));
-        $movie->setDescription($crawler->filter(".fdesc")->first()->text());
         
-        return $movie;
+        return $this->movie->setTitle($crawler->filter('h1')->first()->text())
+            ->setPoster("https://kinoukr.com/". $crawler->filter('img')->first()->attr("src"))
+            ->setDescription($crawler->filter(".fdesc")->first()->text());
     }
 }

@@ -7,6 +7,13 @@ use src\oop\app\src\Parsers\ParserInterface;
 
 class FilmixParserStrategy implements ParserInterface
 {
+    private Movie $movie;
+
+    public function __construct()
+    {
+        $this->movie = new Movie();
+    }
+
     /**
      * @param string $siteContent
      * @return Movie
@@ -17,11 +24,8 @@ class FilmixParserStrategy implements ParserInterface
         preg_match('/<img src="([^"]*)" class="poster poster-tooltip"/i', $siteContent, $matchedPoster);
         preg_match('/<div class="full-story">(.*?)<\/div>/si', $siteContent, $matchedDescription);
 
-        $movie = new Movie();
-        $movie->setTitle($matchedTitle[1]);
-        $movie->setPoster($matchedPoster[1]);
-        $movie->setDescription($matchedDescription[1]);
-        
-        return $movie;
+        return $this->movie->setTitle($matchedTitle[1])
+            ->setPoster($matchedPoster[1])
+            ->setDescription($matchedDescription[1]);
     }
 }
