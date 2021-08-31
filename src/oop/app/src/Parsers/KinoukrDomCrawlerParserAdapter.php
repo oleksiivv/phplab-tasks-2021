@@ -23,9 +23,13 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
     {
         $crawler = new Crawler($siteContent);
         $crawler = $crawler->filter('#dle-content');
+
+        $title = $crawler->filter('h1')->first()->text();
+        $poster = "https://kinoukr.com/". $crawler->filter('img')->first()->attr("src");
+        $description = $crawler->filter(".fdesc")->first()->text();
         
-        return $this->movie->setTitle($crawler->filter('h1')->first()->text())
-            ->setPoster("https://kinoukr.com/". $crawler->filter('img')->first()->attr("src"))
-            ->setDescription($crawler->filter(".fdesc")->first()->text());
+        return $this->movie->setTitle($title)
+            ->setPoster($poster)
+            ->setDescription($description);
     }
 }

@@ -7,6 +7,7 @@ use src\oop\app\src\Parsers\FilmixParserStrategy;
 use src\oop\app\src\Transporters\CurlStrategy;
 use src\oop\app\src\Transporters\GuzzleAdapter;
 use src\oop\app\src\Models\Movie;
+use \GuzzleHttp\Client;
 use Exception;
 
 class ScrapperFactory
@@ -22,7 +23,7 @@ class ScrapperFactory
             case 'filmix':
                 return new Scrapper(new CurlStrategy(), new FilmixParserStrategy(new Movie()));
             case 'kinoukr':
-                return new Scrapper(new GuzzleAdapter(), new KinoukrDomCrawlerParserAdapter(new Movie()));
+                return new Scrapper(new GuzzleAdapter(new Client()), new KinoukrDomCrawlerParserAdapter(new Movie()));
             default:
                 throw new Exception('Resource not found!');
         }
