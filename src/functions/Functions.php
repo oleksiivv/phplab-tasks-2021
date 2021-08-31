@@ -101,5 +101,6 @@ class Functions
         }
 
         return countArguments($arg);
+        // put your code here
     }
 }
