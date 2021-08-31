@@ -10,9 +10,9 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
 {
     private Movie $movie;
 
-    public function __construct()
+    public function __construct(Movie $movie)
     {
-        $this->movie = new Movie();
+        $this->movie = $movie;
     }
 
     /**
