@@ -103,7 +103,10 @@ function addFilterByState($letter)
     echo addParamToURL("filter-by-state", $letter);
 }
 
+/**
+ * @return string
+ */
 function clearAllFilters()
 {
-    echo isset($_GET["page"]) ? '?page=' . $_GET['page'] : $_SERVER["PHP_SELF"];
+    return isset($_GET["page"]) ? '?page=' . $_GET['page'] : $_SERVER["PHP_SELF"];
 }
