@@ -70,7 +70,7 @@ $airports = $queryBuilder->buildQuery();
         
         <?php 
             
-            foreach($airports as $airport): 
+            foreach ($airports as $airport): 
         ?>
         <tr>
             <td><?= $airport['name'] ?></td>

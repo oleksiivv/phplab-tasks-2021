@@ -30,10 +30,10 @@ class QueryBuilder
         
         if (isset($this->queryParams["filter-first-letter-name"])) {
            
-            if(strlen($queryFilter) === 0) {
+            if (strlen($queryFilter) === 0) {
                 $queryFilter = " WHERE a.name LIKE CONCAT(:firstLetterName, '%')";
             }
-            else{
+            else {
                 $queryFilter .= " AND a.name LIKE CONCAT(:firstLetterName, '%')";
             }
             

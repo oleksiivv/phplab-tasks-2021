@@ -7,7 +7,7 @@ require_once './QueryBuilder.php';
  * @param PDO $pdo
  * @return array
  */
-function getUniqueFirstLetters(PDO $pdo)
+function getUniqueFirstLetters(PDO $pdo): array
 {
 
     $sth = $pdo->prepare('SELECT DISTINCT LEFT(name,1) FROM airports ORDER BY LEFT(name,1) ASC');
@@ -22,7 +22,7 @@ function getUniqueFirstLetters(PDO $pdo)
  * @param PDO $pdo
  * @return int
  */
-function countRows(PDO $pdo)
+function countRows(PDO $pdo): int
 {
     
     $sth = $pdo->prepare('SELECT COUNT(*) FROM airports');
