@@ -5,10 +5,9 @@ require_once './pdo_ini.php';
 require_once './functions.php';
 
 
-$queryBuilder = new QueryBuilder();
+$queryBuilder = new QueryBuilder($pdo);
 
 $uniqueFirstLetters = getUniqueFirstLetters($pdo);
-
 
 if (isset($_GET["filter-by-first-letter"])) {
     filterByFirstLetter($queryBuilder, 'name', $_GET["filter-by-first-letter"]);    
@@ -22,10 +21,7 @@ if (isset($_GET["sort"])) {
    sortByKey($queryBuilder, $_GET["sort"]);    
 }
 
-
 paginate($queryBuilder, countRows($pdo), isset($_GET["page"]) ? $_GET["page"] -1 : 0);
-
- 
 
 $airports = $queryBuilder->buildQuery();
 

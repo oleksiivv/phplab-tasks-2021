@@ -9,7 +9,6 @@ require_once './QueryBuilder.php';
  */
 function getUniqueFirstLetters(PDO $pdo): array
 {
-
     $sth = $pdo->prepare('SELECT DISTINCT LEFT(name,1) FROM airports ORDER BY LEFT(name,1) ASC');
     
     $sth->execute();
@@ -24,7 +23,6 @@ function getUniqueFirstLetters(PDO $pdo): array
  */
 function countRows(PDO $pdo): int
 {
-    
     $sth = $pdo->prepare('SELECT COUNT(*) FROM airports');
     
     $sth->execute();
@@ -75,7 +73,7 @@ function addParamToURL($param, $value): string
 {
     $query = $_GET;
 
-    if($param !== "page") {
+    if ($param !== "page") {
         $query["page"] = 1;
     }
     

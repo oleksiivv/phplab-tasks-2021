@@ -7,6 +7,13 @@ require_once './pdo_ini.php';
 class QueryBuilder
 {
     private $queryParams = [];
+    private \PDO $pdo;
+
+
+    public function __construct(\PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
 
     /**
      * @param $command
@@ -22,7 +29,6 @@ class QueryBuilder
      */
     public function buildQuery(): array
     {
-        
         $params = [];
         $queryFilter = "";
         $querySort = "";
@@ -32,8 +38,7 @@ class QueryBuilder
            
             if (strlen($queryFilter) === 0) {
                 $queryFilter = " WHERE a.name LIKE CONCAT(:firstLetterName, '%')";
-            }
-            else {
+            } else {
                 $queryFilter .= " AND a.name LIKE CONCAT(:firstLetterName, '%')";
             }
             
@@ -41,10 +46,9 @@ class QueryBuilder
         }
         if (isset($this->queryParams["filter-first-letter-state"])) {
            
-            if(strlen($queryFilter) === 0) {
+            if (strlen($queryFilter) === 0) {
                 $queryFilter = " WHERE s.name LIKE CONCAT(:firstLetterState, '%')";
-            }
-            else{
+            } else {
                 $queryFilter .= " AND s.name LIKE CONCAT(:firstLetterState, '%')";
             }
             
@@ -65,15 +69,13 @@ class QueryBuilder
                     INNER JOIN states AS s ON a.state_id = s.id"
                     . $queryFilter . $querySort . $queryLimit;
 
-        global $pdo;
-        $sth = $pdo->prepare($query);
+        $sth = $this->pdo->prepare($query);
         $sth->setFetchMode(\PDO::FETCH_ASSOC);
         
         foreach ($params as $key => $value) {
             if ($key === ':startIndex' || $key === ':itemsCount') {
                 $sth->bindValue($key, $value, \PDO::PARAM_INT);
-            }
-            else {
+            } else {
                 $sth->bindValue($key, $value, \PDO::PARAM_STR);
             }
         }
