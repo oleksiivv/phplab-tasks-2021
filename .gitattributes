@@ -1,0 +1,7 @@
+###############################################################################
+
+# Save UTF-16 SQL Files as text ############################################################################### *.sql text working-tree-encoding=UTF-16
+
+*.sql text working-tree-encoding=UTF-16LE
+
+*.sql text working-tree-encoding=UTF-16-LE-BOM
